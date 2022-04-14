@@ -5,6 +5,8 @@ import GithubIcon from '../../../images/icons/github.png'
 import { useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../Loading/Loading';
+
 
 const SocialLogin = () => {
     const navigate = useNavigate()
@@ -16,6 +18,9 @@ const SocialLogin = () => {
     }
     if (user || gitUser) {
         navigate('/home')
+    }
+    if (loading || gitLoading) {
+        return <Loading></Loading>
     }
     return (
         <div>
