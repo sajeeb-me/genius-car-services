@@ -8,6 +8,7 @@ import Loading from '../Loading/Loading';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PageTitle from '../../Shared/PageTitle/PageTitle';
 
 const Login = () => {
     const navigate = useNavigate()
@@ -60,6 +61,7 @@ const Login = () => {
 
     return (
         <div className='w-50 mx-auto'>
+            <PageTitle title="Login" />
             <h2 className='text-primary mt-3 text-center'>Login here</h2>
             <div>
                 <Form onSubmit={handleSubmit} className='py-2'>
