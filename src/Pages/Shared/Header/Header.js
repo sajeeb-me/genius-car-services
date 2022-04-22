@@ -34,6 +34,13 @@ const Header = () => {
                         <Nav>
                             <Nav.Link as={Link} to="/about">About</Nav.Link>
                             {
+                                user &&
+                                <div className='d-flex'>
+                                    <Nav.Link as={Link} to="/addservice">Add</Nav.Link>
+                                    <Nav.Link as={Link} to="/remove">Remove</Nav.Link>
+                                </div>
+                            }
+                            {
                                 user ?
                                     <Nav.Link onClick={handleSignOut}>
                                         Sign out
