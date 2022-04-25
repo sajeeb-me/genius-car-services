@@ -38,6 +38,7 @@ const Header = () => {
                                 <div className='d-flex'>
                                     <Nav.Link as={Link} to="/addservice">Add</Nav.Link>
                                     <Nav.Link as={Link} to="/remove">Remove</Nav.Link>
+                                    <Nav.Link as={Link} to="/orders">Orders</Nav.Link>
                                 </div>
                             }
                             {

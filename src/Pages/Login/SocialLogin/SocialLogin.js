@@ -4,7 +4,7 @@ import FacebookIcon from '../../../images/icons/facebook.png'
 import GithubIcon from '../../../images/icons/github.png'
 import { useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Loading from '../Loading/Loading';
 
 
@@ -12,12 +12,14 @@ const SocialLogin = () => {
     const navigate = useNavigate()
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
     const [signInWithGithub, gitUser, gitLoading, gitError] = useSignInWithGithub(auth);
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/'
     let errorElement;
     if (error || gitError) {
         errorElement = <p className='text-danger'>Error: {error?.message} {gitError?.message}</p>
     }
     if (user || gitUser) {
-        navigate('/home')
+        navigate(from, { replace: true })
     }
     if (loading || gitLoading) {
         return <Loading></Loading>
