@@ -6,7 +6,7 @@ const RemoveService = () => {
     const handleDelete = id => {
         const proceed = window.confirm("Are you sure to delete this service?")
         if (proceed) {
-            const url = `http://localhost:5000/service/${id}`
+            const url = `https://stark-wave-33162.herokuapp.com/service/${id}`
             fetch(url, {
                 method: "DELETE"
             })

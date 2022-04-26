@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PageTitle from '../../Shared/PageTitle/PageTitle';
 import axios from 'axios';
+import useToken from '../../../hooks/useToken';
 
 const Login = () => {
     const navigate = useNavigate()
@@ -27,6 +28,12 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
     const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
+    const [token] = useToken(user)
+
+
+    if (token) {
+        navigate(from, { replace: true })
+    }
 
     if (loading) {
         return <Loading></Loading>
@@ -42,9 +49,6 @@ const Login = () => {
         const password = passwordRef.current.value;
 
         await signInWithEmailAndPassword(email, password)
-        const { data } = await axios.post('http://localhost:5000/login', { email })
-        localStorage.setItem("accessToken", data.accessToken)
-        navigate(from, { replace: true })
     }
 
     const resetPassword = async () => {
@@ -56,10 +60,6 @@ const Login = () => {
         else {
             toast.warning('Email not provided.')
         }
-    }
-
-    if (user) {
-        // navigate(from, { replace: true })
     }
 
     return (

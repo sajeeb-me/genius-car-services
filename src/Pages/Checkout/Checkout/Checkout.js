@@ -36,7 +36,7 @@ const Checkout = () => {
             address: e.target.address.value,
             phone: e.target.phone.value
         }
-        axios.post('http://localhost:5000/orders', order)
+        axios.post('https://stark-wave-33162.herokuapp.com/orders', order)
             .then(response => {
                 // console.log(response)
                 const { data } = response;

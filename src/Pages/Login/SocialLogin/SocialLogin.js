@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import GoogleIcon from '../../../images/icons/google.png'
 import FacebookIcon from '../../../images/icons/facebook.png'
 import GithubIcon from '../../../images/icons/github.png'
@@ -6,20 +6,23 @@ import { useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/a
 import auth from '../../../firebase.init';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Loading from '../Loading/Loading';
+import useToken from '../../../hooks/useToken';
 
 
 const SocialLogin = () => {
     const navigate = useNavigate()
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
     const [signInWithGithub, gitUser, gitLoading, gitError] = useSignInWithGithub(auth);
+    const [token] = useToken(user || gitUser)
     const location = useLocation()
     const from = location.state?.from?.pathname || '/'
     let errorElement;
     if (error || gitError) {
         errorElement = <p className='text-danger'>Error: {error?.message} {gitError?.message}</p>
     }
-    if (user || gitUser) {
+    if (token) {
         navigate(from, { replace: true })
+        // navigate('/')
     }
     if (loading || gitLoading) {
         return <Loading></Loading>

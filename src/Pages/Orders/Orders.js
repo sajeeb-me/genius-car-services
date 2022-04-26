@@ -11,7 +11,7 @@ const Orders = () => {
     const navigate = useNavigate();
     useEffect(() => {
         const getOrders = async () => {
-            const url = `http://localhost:5000/orders?email=${user.email}`
+            const url = `https://stark-wave-33162.herokuapp.com/orders?email=${user?.email}`
             try {
                 const { data } = await axiosPrivate.get(url)
                 setOrders(data)
@@ -28,6 +28,13 @@ const Orders = () => {
     return (
         <div>
             <h1>Your Orders : {orders.length}</h1>
+            <section>
+                {
+                    orders.map(order => <div key={order._ids}>
+                        <h3>{order.service} || {order.email}</h3>
+                    </div>)
+                }
+            </section>
         </div>
     );
 };
